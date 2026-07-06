@@ -74,12 +74,13 @@ type Time struct {
 // NewTime returns a pointer to a Time wrapping t.
 func NewTime(t time.Time) *Time { return &Time{Time: t} }
 
-// MarshalJSON implements json.Marshaler using the API's timestamp format.
+// MarshalJSON implements json.Marshaler using the "2006-01-02 15:04:05"
+// format the API documents for request datetimes (e.g. shipped_at).
 func (t Time) MarshalJSON() ([]byte, error) {
 	if t.IsZero() {
 		return []byte("null"), nil
 	}
-	return strconv.AppendQuote(nil, t.Format("2006/01/02 15:04:05")), nil
+	return strconv.AppendQuote(nil, t.Format("2006-01-02 15:04:05")), nil
 }
 
 // UnmarshalJSON implements json.Unmarshaler, accepting the formats the API

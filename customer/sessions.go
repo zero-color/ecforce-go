@@ -30,7 +30,11 @@ func (s *SessionsService) SignIn(ctx context.Context, email, password string) (*
 	if err != nil {
 		return nil, resp, err
 	}
-	s.client.SetToken(session.AuthenticationToken)
+	// SMS-verification flows answer 202 Accepted without a token; don't
+	// clobber an existing token in that case.
+	if session.AuthenticationToken != "" {
+		s.client.SetToken(session.AuthenticationToken)
+	}
 	return session, resp, nil
 }
 
