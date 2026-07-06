@@ -276,6 +276,10 @@ type OrderShippingID string
 // UnmarshalJSON implements json.Unmarshaler.
 func (i *OrderShippingID) UnmarshalJSON(data []byte) error {
 	s := string(data)
+	if s == "null" {
+		*i = ""
+		return nil
+	}
 	if unquoted, err := strconv.Unquote(s); err == nil {
 		s = unquoted
 	}

@@ -40,7 +40,7 @@ func TestTimeMarshalJSON(t *testing.T) {
 	if err != nil {
 		t.Fatal(err)
 	}
-	if got, want := string(b), `"2023/02/14 16:22:07"`; got != want {
+	if got, want := string(b), `"2023-02-14 16:22:07"`; got != want {
 		t.Errorf("Marshal = %s, want %s", got, want)
 	}
 
